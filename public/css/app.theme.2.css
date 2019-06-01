@@ -1811,13 +1811,24 @@ body[dir="ltr"] .breadcum-area {
   width: 100%;
 }
 
+
+
 .categories .navbar-nav li a {
   background-color: #f2f2f2;
   color: #5d5d60 !important;
   font-weight: 400 !important;
   text-transform: capitalize !important;
-  border-bottom: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da !important;
 }
+/*
+//Fix by Miracle
+.categories ul li a {
+  background-color: #f2f2f2;
+  color: #5d5d60 !important;
+  font-weight: 400 !important;
+  text-transform: capitalize !important;
+  border-bottom: 1px solid #ced4da !important;
+}*/
 
 .categories .navbar-nav li a .img-fuild {
   width: 16px;

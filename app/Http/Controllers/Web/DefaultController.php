@@ -61,6 +61,7 @@ class DefaultController extends DataController
 	//index 
 	public function index(Request $request){
 		
+
 		$title = array('pageTitle' => Lang::get("website.Home"));
 		$result = array();			
 		$result['commonContent'] = $this->commonContent();
@@ -183,7 +184,9 @@ class DefaultController extends DataController
 		
 		$result['weeklySoldProducts'] = array('success'=>'1', 'product_data'=>$detail,  'message'=>"Returned all products.", 'total_record'=>count($detail));
 		
-		return view("index", $title)->with('result', $result); 
+
+		$CatsAndSubCats = $this->GetAllCats();
+		return view("index", $title)->with(['result' =>$result,"CatsAndSubCats"=>$CatsAndSubCats]); 
 		
 	}
 	
