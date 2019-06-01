@@ -14,6 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+    //I added this to test how many queries I was running
+	// \DB::listen(function($sql) {
+	//     \Log::info($sql->sql);
+	//     \Log::info($sql->bindings);
+	//     \Log::info($sql->time);
+	// });
+
          // Using Closure based composers...
 		$result = array();
         $orders = DB::table('orders')

@@ -3,26 +3,18 @@ namespace App\Http\Controllers\Web;
 //use Mail;
 
 //validator is builtin class in laravel
-use Validator;
-
 use DB;
-//for password encryption or hash protected
-use Hash;
-
-//for authenitcate login data
 use Auth;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-
-//for requesting a value 
+use Hash;
+use Lang;
+use Carbon;
+use Session;
+use Validator;
+use App\Category_0;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-//for Carbon a value 
-use Carbon;
-
-//email
 use Illuminate\Support\Facades\Mail;
-use Session;
-use Lang;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class DataController extends Controller
 {
@@ -371,7 +363,7 @@ class DataController extends Controller
 				 'categories_description.categories_name as name'
 				 )
 			->where('categories_description.language_id','=', Session::get('language_id'))
-			->where('group_id','0')
+			->where('parent_id','0')
 			->get();
 		
 		$index = 0;
@@ -849,6 +841,15 @@ class DataController extends Controller
 		return($responseData);
 	
 	}	
+
+	public function GetAllCats(){
+
+    	$query_result = Category_0::with(['Category_1.Category_2'=>function($cat2_query){
+    		$cat2_query->with('Categories_Description');
+    	},"Category_1.Categories_Description","Categories_Description"])->get();
+    	// dd($query_result);
+    	return $query_result;
+    }
 	
 	//getCart
 	public function cart($request){
