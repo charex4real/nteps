@@ -371,7 +371,7 @@ class DataController extends Controller
 				 'categories_description.categories_name as name'
 				 )
 			->where('categories_description.language_id','=', Session::get('language_id'))
-			->where('parent_id','0')
+			->where('group_id','0')
 			->get();
 		
 		$index = 0;
