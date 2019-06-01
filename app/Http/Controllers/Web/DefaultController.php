@@ -5,6 +5,7 @@ Project URI: http://ionicecommerce.com
 Author: VectorCoder Team
 Author URI: http://vectorcoder.com/
 */
+use App\Categories;
 namespace App\Http\Controllers\Web;
 //use Mail;
 //validator is builtin class in laravel

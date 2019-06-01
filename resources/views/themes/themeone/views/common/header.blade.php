@@ -59,21 +59,21 @@
                 
                 <div class="col-12 col-sm-7 col-md-8 col-lg-6 px-0">      
                     <form class="form-inline" action="{{ URL::to('/shop')}}" method="get">
-                    <div class="search-categories">
-                    <select id="category_id" name="category">
-                    <option value="all">@lang('website.All Categories')</option>     
-                        @foreach($result['commonContent']['categories'] as $categories_data)
-                        	<option value="{{$categories_data->slug}}" @if($categories_data->slug==app('request')->input('category')) selected @endif>{{$categories_data->name}}</option>
-                            @if(count($categories_data->sub_categories)>0)
-                                @foreach($categories_data->sub_categories as $sub_categories_data)
-                                <option value="{{$sub_categories_data->sub_slug}}" @if($sub_categories_data->sub_slug==app('request')->input('category')) selected @endif>--{{$sub_categories_data->sub_name}}</option>
-                                @endforeach
-                            @endif	
-                        @endforeach						
-                    </select>
-                    <input type="search"  name="search" placeholder="@lang('website.Search entire store here')..." value="{{ app('request')->input('search') }}" aria-label="Search">
-                    <button type="submit" class="btn btn-secondary"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </div>
+                        <div class="search-categories">
+                        <select id="category_id" name="category">
+                        <option value="all">@lang('website.All Categories')</option>     
+                            @foreach($result['commonContent']['categories'] as $categories_data)
+                            	<option value="{{$categories_data->slug}}" @if($categories_data->slug==app('request')->input('category')) selected @endif>{{$categories_data->name}}</option>
+                                @if(count($categories_data->sub_categories)>0)
+                                    @foreach($categories_data->sub_categories as $sub_categories_data)
+                                    <option value="{{$sub_categories_data->sub_slug}}" @if($sub_categories_data->sub_slug==app('request')->input('category')) selected @endif>--{{$sub_categories_data->sub_name}}</option>
+                                    @endforeach
+                                @endif	
+                            @endforeach						
+                        </select>
+                        <input type="search"  name="search" placeholder="@lang('website.Search entire store here')..." value="{{ app('request')->input('search') }}" aria-label="Search">
+                        <button type="submit" class="btn btn-secondary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
                     </form>
 				</div>
                 <div class="col-12 col-sm-5 col-md-4 col-lg-3 spaceleft-0">
