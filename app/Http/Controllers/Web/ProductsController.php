@@ -184,7 +184,11 @@ class ProductsController extends DataController
 		
 		//liked products
 		$result['liked_products'] = $this->likedProducts();	
-		return view("shop", $title)->with('result', $result); 
+
+		$CatsAndSubCats = $this->GetAllCats();
+		
+
+		return view("shop", $title)->with(['result'=> $result,'CatsAndSubCats'=>$CatsAndSubCats]); 
 		
 	}
 	

@@ -3,51 +3,73 @@
 		<?php echo app('translator')->getFromJson('website.All Categories'); ?>
   </button>
   
+
   <div class="collapse navbar-collapse" id="navbar-categories">
 
     <ul class="navbar-nav flex-column">
     
-     
+    <?php $__currentLoopData = $CatsAndSubCats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $Category_0): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle">
-          Shoe  <i class="fa fa-angle-right " aria-hidden="true"></i> 
+        <a href="<?php echo e(URL::to('/shop')); ?>?category=<?php echo e($Category_0->categories_slug); ?>" class="nav-link dropdown-toggle">
+        <img class="img-fuild" src="<?php echo e(asset('').$Category_0->categories_icon); ?>">
+          <?php echo e($Category_0->Categories_Description->categories_name); ?>  
+
+          <?php if(count($Category_0->Category_1) > 0 ): ?>
+          <i class="fa fa-angle-right " aria-hidden="true"></i>
+          <?php endif; ?> 
         </a>
+
+        <?php if(count($Category_0->Category_1) > 0 ): ?>
+           <ul class="dropdown-menu multi-level">
+        <?php endif; ?>
+
         
-        <ul class="dropdown-menu multi-level">
-                
+        <?php $__currentLoopData = $Category_0->Category_1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $Category_1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+         
             <li class="dropdown-submenu">
-              <a  class="dropdown-item" tabindex="-1" href="#">
+              <a href="<?php echo e(URL::to('/shop')); ?>?category=<?php echo e($Category_1->categories_slug); ?>" class="nav-link dropdown-toggle">
+              <img class="img-fuild" src="<?php echo e(asset('').$Category_1->categories_icon); ?>">
                 
-               Men's Shoe
-               <i class="fa fa-angle-right " aria-hidden="true"></i>
-              </a> 
-                <ul class="dropdown-menu multi-level">
+               <?php echo e($Category_1->Categories_Description->categories_name); ?>
+
+
+                <?php if(count($Category_1->Category_2) > 0 ): ?>
+                  <i class="fa fa-angle-right " aria-hidden="true"></i>
+                <?php endif; ?> 
+              </a>
+
+
+              <?php if(count($Category_1->Category_2) > 0 ): ?>
+                 <ul class="dropdown-menu multi-level">
+              <?php endif; ?>
+              
+              <?php $__currentLoopData = $Category_1->Category_2; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $Category_2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+               
                   <li class="dropdown-submenu">
-                    <a  class="dropdown-item" tabindex="-1" href="#">
+                    <a href="<?php echo e(URL::to('/shop')); ?>?category=<?php echo e($Category_2->categories_slug); ?>" class="nav-link dropdown-toggle">
+                    <img class="img-fuild" src="<?php echo e(asset('').$Category_2->categories_icon); ?>">
                       
-                     Men's Shoe Child1
-                     <i class="fa fa-angle-right " aria-hidden="true"></i>
-                    </a>              
-                  </li> 
-                  <li class="dropdown-submenu">
-                    <a  class="dropdown-item" tabindex="-1" href="#">
-                      
-                    Men's Shoe Child2
-                    </a>              
-                  </li>            
-                </ul>             
-            </li> 
-            <li class="dropdown-submenu">
-              <a  class="dropdown-item" tabindex="-1" href="#">
-                
-              Women's Shoe
-              </a>              
-            </li> 
+                     <?php echo e($Category_2->Categories_Description->categories_name); ?>
+
+
                        
-          
-          </ul>
-        
-        </li>
+                    </a>
+                  </li>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+              <?php if(count($Category_1->Category_2) > 0 ): ?>
+                 </ul>
+              <?php endif; ?>
+
+            </li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+        <?php if(count($Category_0->Category_1) > 0 ): ?>
+           </ul>
+        <?php endif; ?>
+      </li>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+  
        
     </ul>
   </div>
