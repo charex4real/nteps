@@ -48,7 +48,7 @@
                       <th><?php echo e(trans('labels.Name')); ?></th>
                       <th><?php echo e(trans('labels.Image')); ?></th>
                       <th><?php echo e(trans('labels.Icon')); ?></th>
-                      <th><?php echo e(trans('labels.MainCategory')); ?></th>
+                      <th><?php echo e(trans('labels.MainCategory')); ?></th> 
                       <th><?php echo e(trans('labels.AddedLastModifiedDate')); ?></th>
                       <th><?php echo e(trans('labels.Action')); ?></th>
                     </tr>

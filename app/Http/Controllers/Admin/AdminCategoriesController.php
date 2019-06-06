@@ -33,7 +33,7 @@ class AdminCategoriesController extends Controller
 		$categories = DB::table('categories')
 		->leftJoin('categories_description','categories_description.categories_id', '=', 'categories.categories_id')
 		->select('categories.categories_id as id', 'categories.categories_image as image',  'categories.date_added as date_added', 'categories.last_modified as last_modified', 'categories_description.categories_name as name', 'categories.categories_slug as slug')
-		->where('categories_description.language_id','=', $language_id )->where('parent_id', '0')->get();
+		->where('categories_description.language_id','=', $language_id )->where('group_id', '1')->get();
 		
 		$results = array();
 		$index = 0;
@@ -55,7 +55,7 @@ class AdminCategoriesController extends Controller
 		$listingCategories = DB::table('categories')
 		->leftJoin('categories_description','categories_description.categories_id', '=', 'categories.categories_id')
 		->select('categories.categories_id as id', 'categories.categories_image as image',  'categories.date_added as date_added', 'categories.last_modified as last_modified', 'categories_description.categories_name as name', 'categories.categories_slug as slug')
-		->where('categories_description.language_id','=', $language_id )->where('parent_id', '0')->get();
+		->where('categories_description.language_id','=', $language_id )->where('group_id', '1')->get();
 		return($listingCategories) ;
 	}
 	
@@ -65,7 +65,7 @@ class AdminCategoriesController extends Controller
 		$listingCategories = DB::table('categories')
 		->leftJoin('categories_description','categories_description.categories_id', '=', 'categories.categories_id')
 		->select('categories.categories_id as id', 'categories.categories_image as image',  'categories.date_added as date_added', 'categories.last_modified as last_modified', 'categories_description.categories_name as name', 'categories.categories_slug as slug')
-		->where('categories_description.language_id','=', $language_id )->where('parent_id','>', '0')->get();
+		->where('categories_description.language_id','=', $language_id )->where('group_id', '2')->get();
 		return($listingCategories);
 	}
 
