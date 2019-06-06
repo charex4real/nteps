@@ -277,7 +277,7 @@ class OrdersController extends DataController
 		session(['payment_method' => $request->payment_method]);
 		//return view('paymentComponent');		
 	}
-	
+
 	//generate token 
 	public function generateBraintreeTokenWeb(){
 		
@@ -304,6 +304,9 @@ class OrdersController extends DataController
 		return $clientToken;
 		
 	}
+
+
+
 	
 	//place_order
 	public function place_order(Request $request){		 
@@ -1176,6 +1179,24 @@ class OrdersController extends DataController
 			'payment_currency' => $payments_setting[0]->payment_currency,
 			'payment_method'=>'stripe'
 		);
+
+		if($payments_setting[0]->paystack_enviroment=='0'){
+			$paystack_enviroment = 'Test';
+		}else{
+			$paystack_enviroment = 'Live';
+		}
+		
+		$paystack_description = DB::table('payment_description')->where([['payment_name','paystack'],['language_id',Session::get('language_id')]])->get();
+		$paystack = array(
+			'environment' => $paystack_enviroment,
+			'name' => 'Paystack', 
+			'paystack_merchant_id' => $payments_setting[0]->paystack_merchant_id,
+			'paystack_secret_key' => $payments_setting[0]->paystack_secret_key,
+			'public_key' => $payments_setting[0]->paystack_public_key,
+			'active' => $payments_setting[0]->paystack_active,
+			'payment_currency' => $payments_setting[0]->payment_currency,
+			'payment_method'=>'paystack'
+		);
 		
 		$cod_description = DB::table('payment_description')->where([['payment_name','Cash On Delivery'],['language_id',Session::get('language_id')]])->get();
 		$cod = array(
@@ -1241,6 +1262,7 @@ class OrdersController extends DataController
 		$result[3] = $paypal;
 		$result[4] = $instamojo;
 		$result[5] = $hyperpay;
+		$result[6] = $paystack;
 		
 		return $result;
 	}

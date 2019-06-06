@@ -40,6 +40,7 @@ class AdminPaymentController extends Controller
 		$result['languages'] = $myVar->getLanguages();
 				
 		$braintree_description = array();
+		$paystack_description = array();
 		$stripe_description = array();	
 		$paypal_description = array();	
 		$cod_description = array();		
@@ -67,6 +68,24 @@ class AdminPaymentController extends Controller
 				$braintree_description[$languages_data->languages_id]['languages_id'] = $languages_data->languages_id;	
 			}
 			
+
+			$paystack = DB::table('payment_description')->where([
+					['language_id', '=', $languages_data->languages_id],
+					['payment_name', '=', $shipping_methods[0]->paystack_name],
+				])->get();
+				
+			if(count($paystack)>0){								
+				$paystack_description[$languages_data->languages_id]['name'] = $paystack[0]->name;
+				$paystack_description[$languages_data->languages_id]['language_name'] = $languages_data->name;
+				$paystack_description[$languages_data->languages_id]['languages_id'] = $languages_data->languages_id;										
+			}else{
+				$paystack_description[$languages_data->languages_id]['name'] = '';
+				$paystack_description[$languages_data->languages_id]['language_name'] = $languages_data->name;
+				$paystack_description[$languages_data->languages_id]['languages_id'] = $languages_data->languages_id;	
+			}
+			
+			
+
 			$stripe = DB::table('payment_description')->where([
 					['language_id', '=', $languages_data->languages_id],
 					['payment_name', '=', $shipping_methods[0]->stripe_name],
@@ -163,6 +182,7 @@ class AdminPaymentController extends Controller
 		}
 		
 		$result['braintree_description'] 		 = $braintree_description;
+		$result['paystack_description'] 		 = $paystack_description;
 		$result['stripe_description']    		 = $stripe_description;	
 		$result['paypal_description']    		 = $paypal_description;	
 		$result['cod_description'] 		 		 = $cod_description;
@@ -183,6 +203,14 @@ class AdminPaymentController extends Controller
 				'braintree_public_key'	 	 =>   $request->braintree_public_key,
 				'braintree_private_key'	 	 =>   $request->braintree_private_key,
 				'brantree_active'	 	 	 =>   $request->brantree_active,
+
+				'paystack_enviroment'   	 =>   $request->paystack_enviroment,
+				'paystack_name'   	 		 =>   $request->paystack_name,
+				'paystack_merchant_id'	 	 =>   $request->paystack_merchant_id,
+				'paystack_public_key'	 	 =>   $request->paystack_public_key,
+				'paystack_secret_key'	 	 =>   $request->paystack_secret_key,
+				'paystack_active'	 	 	 =>   $request->paystack_active,
+
 				'stripe_enviroment'	 	 	 =>   $request->stripe_enviroment,
 				'secret_key'	 	 	 	 =>   $request->secret_key,
 				'publishable_key'	 	  	 =>   $request->publishable_key,
@@ -212,6 +240,7 @@ class AdminPaymentController extends Controller
 			
 		
 		$braintree_name = $request->braintree_name;
+		$paystack_name = $request->paystack_name;
 		$stripe_name = $request->stripe_name;
 		$paypal_name = $request->paypal_name;
 		$cod_name = $request->cod_name;
@@ -224,6 +253,8 @@ class AdminPaymentController extends Controller
 		$languages = $myVar->getLanguages();
 		
 		foreach($languages as $languages_data){
+
+
 			$braintreeName = 'briantree_name_'.$languages_data->languages_id;
 			$sub_name_1 = 'sub_name_1_'.$languages_data->languages_id;
 			$sub_name_2 = 'sub_name_2_'.$languages_data->languages_id;
@@ -245,6 +276,20 @@ class AdminPaymentController extends Controller
 			}
 			
 			
+			$paystackName = 'paystack_name_'.$languages_data->languages_id;
+			$checkExist = DB::table('payment_description')->where('payment_name','=',$paystack_name)->where('language_id','=',$languages_data->languages_id)->get();			
+			if(count($checkExist)>0){
+				DB::table('payment_description')->where('payment_name','=',$paystack_name)->where('language_id','=',$languages_data->languages_id)->update([
+					'name'  	    		 =>   $request->$paystackName,
+					]);
+			}else{
+				DB::table('payment_description')->insert([
+					'name'  	     		 =>   $request->$paystackName,
+					'language_id'			 =>   $languages_data->languages_id,
+					'payment_name'			 =>   $paystack_name,
+					]);
+			}
+
 			$stripeName = 'stripe_name_'.$languages_data->languages_id;
 			$checkExist = DB::table('payment_description')->where('payment_name','=',$stripe_name)->where('language_id','=',$languages_data->languages_id)->get();			
 			if(count($checkExist)>0){

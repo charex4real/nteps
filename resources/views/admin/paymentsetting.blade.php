@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layout') 
 @section('content')
 <div class="content-wrapper"> 
   <!-- Content Header (Page header) -->
@@ -49,6 +49,10 @@
                                 <div class="col-sm-10 col-md-4">
                                     <label class=" control-label">
                                           <input type="checkbox" name="brantree_active" id="brantree_active" value="1" class="checkboxess" @if($result['shipping_methods'][0]->brantree_active==1) checked @endif > &nbsp;{{ trans('labels.Brantree') }}
+                                    </label><br>
+
+                                     <label class=" control-label">
+                                          <input type="checkbox" name="paystack_active" id="paystack_active" value="1" class="checkboxess" @if($result['shipping_methods'][0]->paystack_active==1) checked @endif > &nbsp;{{ trans('labels.paystack') }}
                                     </label><br>
 
                                     <label class=" control-label">
@@ -149,53 +153,115 @@
 									<span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PrivateKeyText') }}</span>
 								</div>
 							</div>
-                            <hr>
-                            <h4>{{ trans('labels.Stripe') }}</h4>
+
+
+               <hr>
+                            <h4>{{ trans('labels.Paystack') }}</h4>
                             <hr>
                             <div class="form-group">
-                           		<label for="shippingEnvironment" class="col-sm-2 col-md-3 control-label" style="">{{ trans('labels.StripeEnviroment') }}</label>
+                              <label for="shippingEnvironment" class="col-sm-2 col-md-3 control-label" style="">{{ trans('labels.PaystackEnviroment') }}</label>
                                 <div class="col-sm-10 col-md-4">
                                     <label class=" control-label">
-                                          <input type="radio" name="stripe_enviroment" value="0" class="flat-red" @if($result['shipping_methods'][0]->stripe_enviroment==0) checked @endif > &nbsp;{{ trans('labels.Sanbox') }}
+                                          <input type="radio" name="paystack_enviroment" value="0" class="flat-red" @if($result['shipping_methods'][0]->paystack_enviroment==0) checked @endif > &nbsp;{{ trans('labels.Sanbox') }}
                                     </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
                                     <label class=" control-label">
-                                          <input type="radio" name="stripe_enviroment" value="1" class="flat-red" @if($result['shipping_methods'][0]->stripe_enviroment==1) checked @endif >  &nbsp;{{ trans('labels.Live') }}
+                                          <input type="radio" name="paystack_enviroment" value="1" class="flat-red" @if($result['shipping_methods'][0]->paystack_enviroment==1) checked @endif >  &nbsp;{{ trans('labels.Live') }}
                                     </label>
                                     
-                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeEnviromentText') }}</span>
+                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PaystackEnviromentText') }}</span>
                                 </div>
                             </div>
                             
-                            {!! Form::hidden('stripe_name',  $result['shipping_methods'][0]->stripe_name , array('class'=>'form-control', 'id'=>'stripe_name')) !!}
-                                @foreach($result['stripe_description'] as $description_data)
+                            {!! Form::hidden('paystack_name',  $result['shipping_methods'][0]->paystack_name , array('class'=>'form-control', 'id'=>'paystack_name')) !!}
+                                @foreach($result['paystack_description'] as $description_data)
                                     <div class="form-group">
-                                      <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.StripeName') }} ({{ $description_data['language_name'] }})</label>
+                                      <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.PaystackName') }} ({{ $description_data['language_name'] }})</label>
                                       <div class="col-sm-10 col-md-4">
-                                        <input type="text" name="stripe_name_<?=$description_data['languages_id']?>" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif" value="{{$description_data['name']}}">
-                                      <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeName') }} ({{ $description_data['language_name'] }}).</span>          
+                                        <input type="text" name="paystack_name" class="form-control paystack_active @if($result["shipping_methods"][0]->paystack_active==1) field-validate @endif" value="{{$description_data['name']}}">
+                                      <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PaystackName') }} ({{ $description_data['language_name'] }}).</span>          
                                         <span class="help-block hidden">{{ trans('labels.textRequiredFieldMessage') }}</span>
                                       </div>
                                     </div>
                                  
-                              	@endforeach
+                                @endforeach
                                                          
                             <div class="form-group">
-								<label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.SecretKey') }}</label>
-								<div class="col-sm-10 col-md-4">
-									<input type="text" name="secret_key" id="secret_key" value="{{$result['shipping_methods'][0]->secret_key}}" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif">
-                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.SecretKeyText') }}</span>
-								</div>
-							</div>	
-													
-							<div class="form-group">
-								<label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.Key') }} </label>
-								<div class="col-sm-10 col-md-4">
-                               		 <input type="text" name="publishable_key" id="publishable_key" value="{{$result['shipping_methods'][0]->publishable_key}}" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif">
-                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeKeyText') }}</span>
-								</div>
-							</div>	
-                           	
+                              <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.PAYSTACK_SECRET_KEY') }}</label>
+                              <div class="col-sm-10 col-md-4">
+                                <input type="text" name="paystack_secret_key" id="paystack_secret_key" value="{{$result['shipping_methods'][0]->paystack_secret_key}}" class="form-control paystack_active @if($result["shipping_methods"][0]->paystack_active==1) field-validate @endif">
+                                                  <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PaystackKeyText') }}</span>
+                              </div>
+                            </div>  
+                                          
+                              <div class="form-group">
+                                <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.PAYSTACK_PUBLIC_KEY') }} </label>
+                                <div class="col-sm-10 col-md-4">
+                                   <input type="text" name="paystack_public_key" id="paystack_public_key" value="{{$result['shipping_methods'][0]->paystack_public_key}}" class="form-control paystack_active @if($result["shipping_methods"][0]->paystack_active==1) field-validate @endif">
+                                  <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PaystackPKeyText') }}</span>
+                                </div>
+                                <br>
+                              </div>
+
+                                 <div class="form-group">
+                                  <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.MERCHANT_EMAIL') }} </label>
+                                    <div class="col-sm-10 col-md-4">
+                                       <input type="text" name="paystack_merchant_id" id="paystack_merchant_id" value="{{$result['shipping_methods'][0]->paystack_merchant_id}}" class="form-control paystack_active @if($result["shipping_methods"][0]->paystack_active==1) field-validate @endif">
+                                        <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.paystack_merchant_text') }}</span>
+                                    </div>
+
+
+                               </div>  
+
+
+
+                                            <hr>
+                                            <h4>{{ trans('labels.Stripe') }}</h4>
+                                            <hr>
+                                            <div class="form-group">
+                                           		<label for="shippingEnvironment" class="col-sm-2 col-md-3 control-label" style="">{{ trans('labels.StripeEnviroment') }}</label>
+                                                <div class="col-sm-10 col-md-4">
+                                                    <label class=" control-label">
+                                                          <input type="radio" name="stripe_enviroment" value="0" class="flat-red" @if($result['shipping_methods'][0]->stripe_enviroment==0) checked @endif > &nbsp;{{ trans('labels.Sanbox') }}
+                                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                                                    <label class=" control-label">
+                                                          <input type="radio" name="stripe_enviroment" value="1" class="flat-red" @if($result['shipping_methods'][0]->stripe_enviroment==1) checked @endif >  &nbsp;{{ trans('labels.Live') }}
+                                                    </label>
+                                                    
+                                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeEnviromentText') }}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            {!! Form::hidden('stripe_name',  $result['shipping_methods'][0]->stripe_name , array('class'=>'form-control', 'id'=>'stripe_name')) !!}
+                                                @foreach($result['stripe_description'] as $description_data)
+                                                    <div class="form-group">
+                                                      <label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.StripeName') }} ({{ $description_data['language_name'] }})</label>
+                                                      <div class="col-sm-10 col-md-4">
+                                                        <input type="text" name="stripe_name_<?=$description_data['languages_id']?>" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif" value="{{$description_data['name']}}">
+                                                      <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeName') }} ({{ $description_data['language_name'] }}).</span>          
+                                                        <span class="help-block hidden">{{ trans('labels.textRequiredFieldMessage') }}</span>
+                                                      </div>
+                                                    </div>
+                                                 
+                                              	@endforeach
+                                                                         
+                                            <div class="form-group">
+                								<label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.SecretKey') }}</label>
+                								<div class="col-sm-10 col-md-4">
+                									<input type="text" name="secret_key" id="secret_key" value="{{$result['shipping_methods'][0]->secret_key}}" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif">
+                                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.SecretKeyText') }}</span>
+                								</div>
+                							</div>	
+                													
+                							<div class="form-group">
+                								<label for="name" class="col-sm-2 col-md-3 control-label">{{ trans('labels.Key') }} </label>
+                								<div class="col-sm-10 col-md-4">
+                                               		 <input type="text" name="publishable_key" id="publishable_key" value="{{$result['shipping_methods'][0]->publishable_key}}" class="form-control stripe_active @if($result["shipping_methods"][0]->stripe_active==1) field-validate @endif">
+                                                    <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.StripeKeyText') }}</span>
+                								</div>
+                							</div>	
+                                           	
                            	<hr>
                            	<h4>{{ trans('labels.paypal') }}</h4>
                             <hr>

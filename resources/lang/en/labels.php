@@ -19,6 +19,9 @@ return [
 	'welcome_message_to'=>'To Admin Panel',
 	'login'=>'Login',
 	'login_page_name'=>'Login',
+	'paystack'=>'Paystack',
+	'Paystack'=>'Paystack',
+	
 	
 	
 	//login page
@@ -705,8 +708,18 @@ return [
 	'Key' => 'Key',
 	'StripeKeyText' => 'Enter stripe publishable key.',
 	'SecretKey' => 'Secret Key',
+	'PAYSTACK_PUBLIC_KEY' => 'PAYSTACK PUBLIC KEY',
+	'PAYSTACK_SECRET_KEY' => 'PAYSTACK SECRET KEY',
+	'MERCHANT_EMAIL' => 'MERCHANT EMAIL',
+	
+	'paystack_merchant_text' => 'PLEASE ENTER YOUR MERCHANT EMAIL',
+	'PAYSTACK_PAYMENT_URL' => 'PAYSTACK PAYMENT URL',
+	'PaystackKeyText' => 'Enter Paystack secret key.',
+	'PaystackPKeyText' => 'Enter Paystack Public key.',
+	'PaystackName' => 'Paystack Name',
 	'SecretKeyText' => 'Enter stripe secret key.',
 	'StripeEnviroment' => 'Stripe Enviroment',
+	'PaystackEnviroment' => 'Paystack Enviroment',
 	'Sanbox' => 'Sanbox',
 	'Live' => 'Live',
 	'StripeEnviromentText' => 'Choose stripe environment Sanbox or Live.',

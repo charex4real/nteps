@@ -245,7 +245,7 @@ Route::group(['prefix' => 'admin'], function () {
 			Route::post('/updateShppingWeightPrice', 'AdminShippingByWeightController@updateShppingWeightPrice');
 			
 			
-			//Payment setting
+			//Payment setting 
 			Route::get('/paymentsetting', 'AdminPaymentController@paymentsetting');
 			Route::post('/updatePaymentSetting', 'AdminPaymentController@updatePaymentSetting');
 
