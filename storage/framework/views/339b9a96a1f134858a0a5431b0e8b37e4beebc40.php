@@ -420,6 +420,8 @@
                             <div id="paypal_button" class="payment_btns" style="display: none"></div>
                             
                             <button id="braintree_button" style="display: none" class="btn btn-dark payment_btns" data-toggle="modal" data-target="#braintreeModel" ><?php echo app('translator')->getFromJson('website.Order Now'); ?></button>
+
+                             <button id="paystack_button" style="display: none" class="btn btn-dark payment_btns" data-toggle="modal" data-target="#paystackModel" ><?php echo app('translator')->getFromJson('website.Order Now'); ?></button>
                             
                             <button id="stripe_button" class="btn btn-dark payment_btns" style="display: none" data-toggle="modal" data-target="#stripeModel" ><?php echo app('translator')->getFromJson('website.Order Now'); ?></button>
                             
@@ -431,8 +433,6 @@
                          </div>
                     </div>
                     
-                                     
-                
                     <!-- The braintree Modal -->
                     <div class="modal fade" id="braintreeModel">
                       <div class="modal-dialog">
@@ -441,6 +441,28 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title"><?php echo app('translator')->getFromJson('website.BrainTree Payment'); ?></h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                      <div id="payment-form"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-dark"><?php echo app('translator')->getFromJson('website.Pay'); ?> <?php echo e($web_setting[19]->value); ?><?php echo e(number_format((float)$total_price+0, 2, '.', '')); ?></button>
+                                </div>
+                            </form>
+                        </div>
+                       </div>
+                    </div>
+
+                
+                    <!-- The paystack Modal -->
+                    <div class="modal fade" id="paystackModel">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="checkout" method="post" action="<?php echo e(URL::to('/place_order')); ?>">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title"><?php echo app('translator')->getFromJson('website.paystackPayment'); ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">

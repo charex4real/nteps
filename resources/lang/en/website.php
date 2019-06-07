@@ -389,6 +389,9 @@ return [
 	'Please select your payment method'=>'Please select your payment method.',
 		
 	'BrainTree Payment'=>'BrainTree Payment',
+
+	'paystackPayment'=>'Paystack Payment',
+	
 		
 	'Card number'=>'Card number',
 		

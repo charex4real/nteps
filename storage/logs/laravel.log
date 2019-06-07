@@ -3083,3 +3083,12 @@ Stack trace:
 #57 C:\xampp\htdocs\nteps\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #58 C:\xampp\htdocs\nteps\index.php(20): require_once('C:\\xampp\\htdocs...')
 #59 {main}  
+[2019-06-07 12:50:13] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\nteps\app\braintree\Braintree\Http.php:152
+Stack trace:
+#0 {main}  
+[2019-06-07 13:07:35] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\nteps\app\braintree\Braintree\Http.php:152
+Stack trace:
+#0 {main}  
+[2019-06-07 13:38:25] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\nteps\vendor\laravel\framework\src\Illuminate\Filesystem\Filesystem.php:122
+Stack trace:
+#0 {main}  
